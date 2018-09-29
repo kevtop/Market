@@ -67,32 +67,48 @@ namespace Market.Controllers
                 return View(orderView);
             }
 
-            var order = new Order
-            {
-                CustomerID = customerID,
-                DateOrder = DateTime.Now,
-                OrderStatus = OrderStatus.Created
-            };
-            db.Orders.Add(order);
-            db.SaveChanges();
+            var orderID = 0;
 
-            var orderID = db.Orders.ToList().Select(o => o.OrderID).Max();
-
-            foreach (var item in orderView.Products)
+            using(var transaction = db.Database.BeginTransaction())
             {
-                var orderDetail = new OrderDetail
+                try
                 {
-                    ProductID = item.ProductID,
-                    Description = item.Description,
-                    Price = item.Price,
-                    Quantity = item.Quantity,
-                    OrderID = orderID
-                };
-                db.OrderDetails.Add(orderDetail);
-                db.SaveChanges();
-            }
-            
+                    var order = new Order
+                    {
+                        CustomerID = customerID,
+                        DateOrder = DateTime.Now,
+                        OrderStatus = OrderStatus.Created
+                    };
+                    db.Orders.Add(order);
+                    db.SaveChanges();
 
+                    orderID = db.Orders.ToList().Select(o => o.OrderID).Max();
+
+                    foreach (var item in orderView.Products)
+                    {
+                        var orderDetail = new OrderDetail
+                        {
+                            ProductID = item.ProductID,
+                            Description = item.Description,
+                            Price = item.Price,
+                            Quantity = item.Quantity,
+                            OrderID = orderID
+                        };
+                        db.OrderDetails.Add(orderDetail);
+                        db.SaveChanges();
+                    }
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
+                    ViewBag.Error = "Error" + e.Message;
+                    return View(orderView);
+                }
+                
+            }
+
+            
             ViewBag.Message = string.Format("La orden: {0}, grabada OK", orderID);
 
 
@@ -146,17 +162,37 @@ namespace Market.Controllers
                 ViewBag.Error = "Producto no existe";
                 return View(productOrder);
             }
-
+            
             productOrder = orderView.Products.Find(p => p.ProductID == productID);
             if (productOrder == null)
             {
-                productOrder = new ProductOrder
+                if(float.TryParse(Request["Quantity"], out float result))
                 {
-                    Description = product.Description,
-                    Price = product.Price,
-                    ProductID = product.ProductID,
-                    Quantity = float.Parse(Request["Quantity"])
-                };
+                    productOrder = new ProductOrder
+                    {
+                        Description = product.Description,
+                        Price = product.Price,
+                        ProductID = product.ProductID,
+                        Quantity = float.Parse(Request["Quantity"])
+                    };
+                }
+                else
+                {
+                    var list = db.Products.ToList();
+                    list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
+                    list = list.OrderBy(p => p.Description).ToList();
+                    ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                    ViewBag.Error = "Debe ingresar una cantidad";
+                    return View(productOrder);
+                    //productOrder = new ProductOrder
+                    //{
+                    //    Description = product.Description,
+                    //    Price = product.Price,
+                    //    ProductID = product.ProductID,
+                    //    Quantity = result
+                    //};
+                }
+                
                 orderView.Products.Add(productOrder);
             }
             else
