@@ -54,9 +54,9 @@ namespace Market
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "108563430038559",
+               appSecret: "7cb7ff021d6e42b440734f940d7e1f22");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

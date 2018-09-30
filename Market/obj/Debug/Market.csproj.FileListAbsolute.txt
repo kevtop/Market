@@ -138,3 +138,4 @@ C:\Users\user\source\repos\Market\Market\obj\Debug\Market.csproj.CoreCompileInpu
 C:\Users\user\source\repos\Market\Market\obj\Debug\Market.csproj.CopyComplete
 C:\Users\user\source\repos\Market\Market\obj\Debug\Market.dll
 C:\Users\user\source\repos\Market\Market\obj\Debug\Market.pdb
+C:\Users\user\source\repos\Market\Market\obj\Debug\Market.csprojAssemblyReference.cache

@@ -10,16 +10,17 @@ using Market.Models;
 
 namespace Market.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private MarketContext db = new MarketContext();
-
+        [AllowAnonymous]
         // GET: Products
         public ActionResult Index()
         {
             return View(db.Products.ToList());
         }
-
+        [Authorize(Roles ="Edit")]
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
@@ -72,7 +73,6 @@ namespace Market.Controllers
             }
             return View(product);
         }
-
         // POST: Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -103,7 +103,7 @@ namespace Market.Controllers
             }
             return View(product);
         }
-
+        
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

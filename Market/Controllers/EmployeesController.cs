@@ -10,6 +10,7 @@ using Market.Models;
 
 namespace Market.Controllers
 {
+    [Authorize]
     public class EmployeesController : Controller
     {
         private MarketContext db = new MarketContext();

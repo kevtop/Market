@@ -8,9 +8,11 @@ using System.Web.Mvc;
 
 namespace Market.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         MarketContext db = new MarketContext();
+
 
         // GET: Orders
         public ActionResult NewOrder()
@@ -95,6 +97,7 @@ namespace Market.Controllers
                             OrderID = orderID
                         };
                         db.OrderDetails.Add(orderDetail);
+                        db.Products.Find(orderDetail.ProductID).Stock -= (int)orderDetail.Quantity;
                         db.SaveChanges();
                     }
                     transaction.Commit();
@@ -134,7 +137,7 @@ namespace Market.Controllers
             ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
             return View();
         }
-
+        
         [HttpPost]
         public ActionResult AddProduct(ProductOrder productOrder)
         {
@@ -142,7 +145,7 @@ namespace Market.Controllers
 
             var productID = int.Parse(Request["ProductID"]);
 
-            if(productID == 0)
+            if (productID == 0)
             {
                 var list = db.Products.ToList();
                 list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
@@ -162,19 +165,15 @@ namespace Market.Controllers
                 ViewBag.Error = "Producto no existe";
                 return View(productOrder);
             }
-            
             productOrder = orderView.Products.Find(p => p.ProductID == productID);
             if (productOrder == null)
             {
-                if(float.TryParse(Request["Quantity"], out float result))
+                
+                if (float.TryParse(Request["Quantity"], out float result))
                 {
-                    productOrder = new ProductOrder
-                    {
-                        Description = product.Description,
-                        Price = product.Price,
-                        ProductID = product.ProductID,
-                        Quantity = float.Parse(Request["Quantity"])
-                    };
+
+                    
+                    
                 }
                 else
                 {
@@ -184,20 +183,48 @@ namespace Market.Controllers
                     ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
                     ViewBag.Error = "Debe ingresar una cantidad";
                     return View(productOrder);
-                    //productOrder = new ProductOrder
-                    //{
-                    //    Description = product.Description,
-                    //    Price = product.Price,
-                    //    ProductID = product.ProductID,
-                    //    Quantity = result
-                    //};
+                    
+                }
+                if (int.Parse(Request["Quantity"]) < db.Products.Find(productID).Stock)
+                {
+                    productOrder = new ProductOrder
+                    {
+                        Description = product.Description,
+                        Price = product.Price,
+                        ProductID = product.ProductID,
+                        Quantity = float.Parse(Request["Quantity"])
+                    };
+                    orderView.Products.Add(productOrder);
+                }
+                else
+                {
+                    var list = db.Products.ToList();
+                    list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
+                    list = list.OrderBy(p => p.Description).ToList();
+                    ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                    ViewBag.Error = "La cantidad es mayor que el stock disponible";
+                    return View(productOrder);
                 }
                 
-                orderView.Products.Add(productOrder);
+                
             }
             else
             {
-                productOrder.Quantity += float.Parse(Request["Quantity"]);
+                
+                var stock = db.Products.Find(productID).Stock - productOrder.Quantity;
+                if (stock >= int.Parse(Request["Quantity"]))
+                {
+                    productOrder.Quantity += float.Parse(Request["Quantity"]);
+                }
+                else
+                {
+                    var list = db.Products.ToList();
+                    list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
+                    list = list.OrderBy(p => p.Description).ToList();
+                    ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                    ViewBag.Error = string.Format("La cantidad es mayor que el stock disponible {0}", stock);
+                    return View(productOrder);
+                }
             }
             
 

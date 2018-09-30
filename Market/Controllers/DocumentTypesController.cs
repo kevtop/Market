@@ -10,8 +10,10 @@ using Market.Models;
 
 namespace Market.Controllers
 {
+    [Authorize]
     public class DocumentTypesController : Controller
     {
+
         private MarketContext db = new MarketContext();
 
         // GET: DocumentTypes

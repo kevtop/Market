@@ -74,3 +74,5 @@ C:\Users\user\source\repos\Market\Market.Tests\obj\Debug\Market.Tests.csproj.Cor
 C:\Users\user\source\repos\Market\Market.Tests\obj\Debug\Market.Tests.csproj.CopyComplete
 C:\Users\user\source\repos\Market\Market.Tests\obj\Debug\Market.Tests.dll
 C:\Users\user\source\repos\Market\Market.Tests\obj\Debug\Market.Tests.pdb
+C:\Users\user\source\repos\Market\Market.Tests\bin\Debug\Microsoft.Owin.Security.Facebook.dll
+C:\Users\user\source\repos\Market\Market.Tests\bin\Debug\Microsoft.Owin.Security.Facebook.xml
