@@ -1,0 +1,23 @@
+﻿body {
+    padding:20px;
+}
+th {
+    background: #273b47;
+    color: white;
+    text-align: center;
+}
+table,th,td {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #273b47;
+}
+td {
+    text-align: center;
+}
+.detalles{
+    font-size: medium;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.orden{
+    text-align:right;
+}

@@ -1,0 +1,62 @@
+﻿
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="stylesheet" href="~/Content/test.css" />
+        <title>Print</title>
+        @model Market.ViewModels.OrderDetailView
+
+
+        @{
+            Layout = null;
+        }
+    </head>
+    <body>
+
+        <div class="orden">
+            <h2 class="detalles">Orden: @Model.Order.OrderID</h2>
+        </div>
+        <br/>
+        <h2 class="detalles">Cliente: @Model.Order.Customer.FullName Nit: @Model.Order.Customer.Document</h2>
+        <div>
+            <table>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Product.ProductID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Product.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Product.Quantity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Product.Description)
+                    </th>
+
+                </tr>
+
+                @foreach (var item in Model.Order.OrderDetails)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.ProductID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                </tr>
+                }
+            </table>
+        </div>
+    </body>
+    </html>

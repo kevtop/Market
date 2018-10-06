@@ -96,7 +96,7 @@ namespace Market.Controllers
                             Quantity = item.Quantity,
                             OrderID = orderID
                         };
-                        db.OrderDetails.Add(orderDetail);
+                        db.OrderDetail.Add(orderDetail);
                         db.Products.Find(orderDetail.ProductID).Stock -= (int)orderDetail.Quantity;
                         db.SaveChanges();
                     }
@@ -235,6 +235,19 @@ namespace Market.Controllers
 
             return View("NewOrder",orderView);
         }
+
+        public JsonResult GetSearchValue(string term)
+        {
+            using (MarketContext db = new MarketContext())
+            {
+                var result = db.Products.Where(x => x.Description.Contains(term)).Select(x => x.Description).ToList();
+                
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            
+        }
+
+        
 
         protected override void Dispose(bool disposing)
         {

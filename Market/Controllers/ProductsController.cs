@@ -16,11 +16,12 @@ namespace Market.Controllers
         private MarketContext db = new MarketContext();
         [AllowAnonymous]
         // GET: Products
+        [Authorize(Roles = "View")]
         public ActionResult Index()
         {
             return View(db.Products.ToList());
         }
-        [Authorize(Roles ="Edit")]
+        [Authorize(Roles ="View")]
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
@@ -35,7 +36,7 @@ namespace Market.Controllers
             }
             return View(product);
         }
-
+        [Authorize(Roles = "Create")]
         // GET: Products/Create
         public ActionResult Create()
         {
@@ -47,6 +48,7 @@ namespace Market.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Create")]
         public ActionResult Create([Bind(Include = "ProductID,Description,Price,LastBuy,Stock,Remarks")] Product product)
         {
             if (ModelState.IsValid)
@@ -58,7 +60,7 @@ namespace Market.Controllers
 
             return View(product);
         }
-
+        [Authorize(Roles = "Edit")]
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -78,6 +80,7 @@ namespace Market.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Edit")]
         public ActionResult Edit([Bind(Include = "ProductID,Description,Price,LastBuy,Stock,Remarks")] Product product)
         {
             if (ModelState.IsValid)
@@ -88,7 +91,7 @@ namespace Market.Controllers
             }
             return View(product);
         }
-
+        [Authorize(Roles = "Delete")]
         // GET: Products/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -103,7 +106,7 @@ namespace Market.Controllers
             }
             return View(product);
         }
-        
+        [Authorize(Roles = "Delete")]
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

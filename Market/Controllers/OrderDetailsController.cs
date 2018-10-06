@@ -17,23 +17,9 @@ namespace Market.Controllers
         // GET: OrderDetails
         public ActionResult Index()
         {
-            var orderDetails = db.OrderDetails.Include(o => o.Order).Include(o => o.Product);
-            return View(orderDetails.ToList());
+            var orderDetailView = db.OrderDetail.Include(o => o.Order).Include(o => o.Product);
+            return View(orderDetailView.ToList());
         }
-
-        //public ActionResult Index(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    OrderDetail orderDetail = db.OrderDetails.Find(id);
-        //    if (orderDetail == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(orderDetail);
-        //}
 
         // GET: OrderDetails/Details/5
         public ActionResult Details(int? id)
@@ -42,7 +28,7 @@ namespace Market.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            OrderDetail orderDetail = db.OrderDetails.Find(id);
+            OrderDetail orderDetail = db.OrderDetail.Find(id);
             if (orderDetail == null)
             {
                 return HttpNotFound();
@@ -67,7 +53,7 @@ namespace Market.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.OrderDetails.Add(orderDetail);
+                db.OrderDetail.Add(orderDetail);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -84,7 +70,7 @@ namespace Market.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            OrderDetail orderDetail = db.OrderDetails.Find(id);
+            OrderDetail orderDetail = db.OrderDetail.Find(id);
             if (orderDetail == null)
             {
                 return HttpNotFound();
@@ -119,7 +105,7 @@ namespace Market.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            OrderDetail orderDetail = db.OrderDetails.Find(id);
+            OrderDetail orderDetail = db.OrderDetail.Find(id);
             if (orderDetail == null)
             {
                 return HttpNotFound();
@@ -132,8 +118,8 @@ namespace Market.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            OrderDetail orderDetail = db.OrderDetails.Find(id);
-            db.OrderDetails.Remove(orderDetail);
+            OrderDetail orderDetail = db.OrderDetail.Find(id);
+            db.OrderDetail.Remove(orderDetail);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

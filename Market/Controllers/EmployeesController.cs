@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Market.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Market.Controllers
 {
@@ -14,6 +16,7 @@ namespace Market.Controllers
     public class EmployeesController : Controller
     {
         private MarketContext db = new MarketContext();
+        ApplicationDbContext dba = new ApplicationDbContext();
 
         // GET: Employees
         public ActionResult Index()
@@ -55,9 +58,23 @@ namespace Market.Controllers
             {
                 db.Employees.Add(employee);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                
             }
-
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(dba));
+            var user = userManager.FindByName(employee.Email);
+            if (user == null)
+            {
+                user = new ApplicationUser
+                {
+                    UserName = employee.Email,
+                    Email = employee.Email
+                };
+                userManager.Create(user,employee.Email);
+                userManager.AddToRole(user.Id, "View");
+                dba.SaveChanges();
+                return RedirectToAction("Index");
+            };
+            
             ViewBag.DocumentTypeID = new SelectList(db.DocumentTypes, "DocumentTypeID", "Description", employee.DocumentTypeID);
             return View(employee);
         }

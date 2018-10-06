@@ -1,6 +1,7 @@
 ﻿@model Market.Models.ProductOrder
 
 
+
 @{
     ViewBag.Title = "AddProduct";
 }
@@ -13,26 +14,48 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-
+    @*-----------
     <div class="form-group">
-        @Html.LabelFor(model => model.ProductID, "ProductID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("ProductID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ProductID, "", new { @class = "text-danger" })
+        <div>
+            
+            <label for="searchInput">Product Search</label>
+            <input type="text" class="form-control" id="searchInput" />
         </div>
-    </div>
+        @section scripts{
+            <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script>
+                $(function () {
+                    $("#searchInput").autocomplete({
+                        source: "/Orders/GetSearchValue"
+                    })
+                });
+            </script>
+        }
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+    </div>
+        ----------------*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductID, "ProductID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ProductID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProductID, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-    <input type="submit" value="Add Product" class="btn btn-primary" />
+
+
+        <input type="submit" value="Add Product" class="btn btn-primary" />
 
 </div>
 }

@@ -9,6 +9,7 @@ namespace Market.ViewModels
     public class OrderDetailView
     {
         public Order Order { get; set; }
+        public OrderDetail OrderDetail { get; set; }
         public List<Order> Orders { get; set; }
         public Customer Customer { get; set; }
         public ProductOrder Product { get; set; }

@@ -37,7 +37,7 @@ namespace Market.Models
 
         public System.Data.Entity.DbSet<Market.Models.Order> Orders { get; set; }
 
-        public System.Data.Entity.DbSet<Market.Models.OrderDetail> OrderDetails { get; set; }
+        public System.Data.Entity.DbSet<Market.Models.OrderDetail> OrderDetail { get; set; }
 
     }
 }
