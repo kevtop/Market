@@ -27,8 +27,10 @@ namespace Market.Models
         [Display(Name = "Comentarios")]
         [DataType(DataType.MultilineText)]
         public string Remarks { get; set; }
+        public int SupplierID { get; set; }
         //lado uno de la relacion muchos a muchos
-        public ICollection<SupplierProduct> SupplierProducts { get; set; }
+        public virtual Supplier Supplier { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
+
     }
 }

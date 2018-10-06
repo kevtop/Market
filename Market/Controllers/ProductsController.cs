@@ -10,18 +10,17 @@ using Market.Models;
 
 namespace Market.Controllers
 {
-    [Authorize]
     public class ProductsController : Controller
     {
         private MarketContext db = new MarketContext();
-        [AllowAnonymous]
+
         // GET: Products
-        [Authorize(Roles = "View")]
         public ActionResult Index()
         {
-            return View(db.Products.ToList());
+            var products = db.Products.Include(p => p.Supplier);
+            return View(products.ToList());
         }
-        [Authorize(Roles ="View")]
+
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
@@ -36,10 +35,11 @@ namespace Market.Controllers
             }
             return View(product);
         }
-        [Authorize(Roles = "Create")]
+
         // GET: Products/Create
         public ActionResult Create()
         {
+            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "Name");
             return View();
         }
 
@@ -48,8 +48,7 @@ namespace Market.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Create")]
-        public ActionResult Create([Bind(Include = "ProductID,Description,Price,LastBuy,Stock,Remarks")] Product product)
+        public ActionResult Create([Bind(Include = "ProductID,Description,Price,LastBuy,Stock,Remarks,SupplierID")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -58,9 +57,10 @@ namespace Market.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "Name", product.SupplierID);
             return View(product);
         }
-        [Authorize(Roles = "Edit")]
+
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -73,15 +73,16 @@ namespace Market.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "Name", product.SupplierID);
             return View(product);
         }
+
         // POST: Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Edit")]
-        public ActionResult Edit([Bind(Include = "ProductID,Description,Price,LastBuy,Stock,Remarks")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductID,Description,Price,LastBuy,Stock,Remarks,SupplierID")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -89,9 +90,10 @@ namespace Market.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "Name", product.SupplierID);
             return View(product);
         }
-        [Authorize(Roles = "Delete")]
+
         // GET: Products/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -106,7 +108,7 @@ namespace Market.Controllers
             }
             return View(product);
         }
-        [Authorize(Roles = "Delete")]
+
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

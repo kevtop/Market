@@ -9,7 +9,9 @@ namespace Market.Models
     public class Supplier
     {
         [Key]
+        
         public int SupplierID { get; set; }
+        [Display(Name = "Proveedor")]
         public string Name { get; set; }
         public string ContactFirstName { get; set; }
         public string ContactLastName { get; set; }
@@ -17,6 +19,6 @@ namespace Market.Models
         public string Address { get; set; }
         public string Email { get; set; }
         //lado uno de la relacion muchos a muchos
-        public ICollection<SupplierProduct> SupplierProducts { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }
