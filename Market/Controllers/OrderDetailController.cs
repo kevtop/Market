@@ -4,6 +4,7 @@ using Market.ViewModels;
 using Rotativa;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -62,7 +63,11 @@ namespace Market.Controllers
             }
             OrderDetailView orderDetailView = new OrderDetailView();
             orderDetailView.Order = db.Orders.Find(id);
-
+            OrderDetail orderDetail = db.OrderDetail.Find(id);
+            orderDetail.Order.OrderStatus = OrderStatus.Delivered;
+            db.Entry(orderDetail).State = EntityState.Modified;
+            db.SaveChanges();
+            orderDetailView.Order.OrderStatus = orderDetail.Order.OrderStatus;
             if (orderDetailView == null)
             {
                 return HttpNotFound();

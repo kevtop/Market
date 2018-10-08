@@ -296,3 +296,4 @@ C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportAppServer.CommonO
 C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
 C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
 C:\Users\user\Desktop\market\Market\bin\stdole.dll
+C:\Users\user\Desktop\market\Market\obj\Debug\Market.csprojAssemblyReference.cache

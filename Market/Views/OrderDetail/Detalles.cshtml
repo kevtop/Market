@@ -19,8 +19,10 @@
         <div class="orden">
             <h2 class="detalles">Orden: @Model.Order.OrderID</h2>
         </div>
-        <br/>
         <h2 class="detalles">Cliente: @Model.Order.Customer.FullName Nit: @Model.Order.Customer.Document</h2>
+        <div>
+            <h2 class="orden">Fecha: @Model.Order.DateOrder Estatus: @Model.Order.OrderStatus</h2>
+        </div>
         <div>
             <table>
                 <tr>
