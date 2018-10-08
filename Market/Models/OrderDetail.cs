@@ -24,6 +24,9 @@ namespace Market.Models
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
         public float Quantity { get; set; }
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
+        public decimal Total { get; set; }
 
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }

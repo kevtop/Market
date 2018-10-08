@@ -94,10 +94,12 @@ namespace Market.Controllers
                             Description = item.Description,
                             Price = item.Price,
                             Quantity = item.Quantity,
+                            Total = item.Value,
                             OrderID = orderID
                         };
                         db.OrderDetail.Add(orderDetail);
                         db.Products.Find(orderDetail.ProductID).Stock -= (int)orderDetail.Quantity;
+                        order.Total += orderDetail.Total;
                         db.SaveChanges();
                     }
                     transaction.Commit();

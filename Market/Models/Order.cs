@@ -12,6 +12,9 @@ namespace Market.Models
         public int OrderID { get; set; }
         public DateTime DateOrder { get; set; }
         public int CustomerID { get; set; }
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
+        public decimal Total { get; set; }
         public OrderStatus OrderStatus { get; set; }
 
         public virtual Customer Customer { get; set; }
