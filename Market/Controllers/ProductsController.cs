@@ -17,8 +17,7 @@ namespace Market.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Supplier);
-            return View(products.ToList());
+            return View(db.Products.ToList());
         }
 
         // GET: Products/Details/5
@@ -39,7 +38,6 @@ namespace Market.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "Name");
             return View();
         }
 
@@ -48,7 +46,7 @@ namespace Market.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,Description,Price,LastBuy,Stock,Remarks,SupplierID")] Product product)
+        public ActionResult Create([Bind(Include = "ProductID,Description,Price,Margin,Remarks")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +55,6 @@ namespace Market.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "Name", product.SupplierID);
             return View(product);
         }
 
@@ -73,7 +70,6 @@ namespace Market.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "Name", product.SupplierID);
             return View(product);
         }
 
@@ -82,7 +78,7 @@ namespace Market.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,Description,Price,LastBuy,Stock,Remarks,SupplierID")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductID,Description,Price,Margin,Remarks")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +86,6 @@ namespace Market.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "Name", product.SupplierID);
             return View(product);
         }
 

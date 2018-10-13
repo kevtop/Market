@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace Market.Controllers
 {
@@ -98,7 +99,7 @@ namespace Market.Controllers
                             OrderID = orderID
                         };
                         db.OrderDetail.Add(orderDetail);
-                        db.Products.Find(orderDetail.ProductID).Stock -= (int)orderDetail.Quantity;
+                        db.ProductInventories.Find(orderDetail.ProductID).Stock -= (int)orderDetail.Quantity;
                         order.Total += orderDetail.Total;
                         db.SaveChanges();
                     }
@@ -133,13 +134,13 @@ namespace Market.Controllers
 
         public ActionResult AddProduct()
         {
-            var list = db.Products.ToList();
+            var list = db.ProductInventories.ToList();
             list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
             list = list.OrderBy(p => p.Description).ToList();
             ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult AddProduct(ProductOrder productOrder)
         {
@@ -149,7 +150,7 @@ namespace Market.Controllers
 
             if (productID == 0)
             {
-                var list = db.Products.ToList();
+                var list = db.ProductInventories.ToList();
                 list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
                 list = list.OrderBy(p => p.Description).ToList();
                 ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
@@ -157,10 +158,10 @@ namespace Market.Controllers
                 return View(productOrder);
             }
 
-            var product = db.Products.Find(productID);
+            var product = db.ProductInventories.Find(productID);
             if (product == null)
             {
-                var list = db.Products.ToList();
+                var list = db.ProductInventories.ToList();
                 list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
                 list = list.OrderBy(p => p.Description).ToList();
                 ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
@@ -170,24 +171,24 @@ namespace Market.Controllers
             productOrder = orderView.Products.Find(p => p.ProductID == productID);
             if (productOrder == null)
             {
-                
+
                 if (float.TryParse(Request["Quantity"], out float result))
                 {
 
-                    
-                    
+
+
                 }
                 else
                 {
-                    var list = db.Products.ToList();
+                    var list = db.ProductInventories.ToList();
                     list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
                     list = list.OrderBy(p => p.Description).ToList();
                     ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
                     ViewBag.Error = "Debe ingresar una cantidad";
                     return View(productOrder);
-                    
+
                 }
-                if (int.Parse(Request["Quantity"]) < db.Products.Find(productID).Stock)
+                if (int.Parse(Request["Quantity"]) < db.ProductInventories.Find(productID).Stock)
                 {
                     productOrder = new ProductOrder
                     {
@@ -200,27 +201,24 @@ namespace Market.Controllers
                 }
                 else
                 {
-                    var list = db.Products.ToList();
+                    var list = db.ProductInventories.ToList();
                     list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
                     list = list.OrderBy(p => p.Description).ToList();
                     ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
                     ViewBag.Error = "La cantidad es mayor que el stock disponible";
                     return View(productOrder);
                 }
-                
-                
             }
             else
             {
-                
-                var stock = db.Products.Find(productID).Stock - productOrder.Quantity;
+                var stock = db.ProductInventories.Find(productID).Stock - productOrder.Quantity;
                 if (stock >= int.Parse(Request["Quantity"]))
                 {
                     productOrder.Quantity += float.Parse(Request["Quantity"]);
                 }
                 else
                 {
-                    var list = db.Products.ToList();
+                    var list = db.ProductInventories.ToList();
                     list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
                     list = list.OrderBy(p => p.Description).ToList();
                     ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
@@ -228,29 +226,13 @@ namespace Market.Controllers
                     return View(productOrder);
                 }
             }
-            
-
             var listC = db.Customers.ToList();
             listC.Add(new Customer { CustomerID = 0, FirstName = "[Seleccione un Cliente]" });
             listC = listC.OrderBy(c => c.FullName).ToList();
             ViewBag.CustomerID = new SelectList(listC, "CustomerID", "FullName");
 
-            return View("NewOrder",orderView);
+            return View("NewOrder", orderView);
         }
-
-        public JsonResult GetSearchValue(string term)
-        {
-            using (MarketContext db = new MarketContext())
-            {
-                var result = db.Products.Where(x => x.Description.Contains(term)).Select(x => x.Description).ToList();
-                
-                return Json(result, JsonRequestBehavior.AllowGet);
-            }
-            
-        }
-
-        
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

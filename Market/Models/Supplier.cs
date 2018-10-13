@@ -19,6 +19,7 @@ namespace Market.Models
         public string Address { get; set; }
         public string Email { get; set; }
         //lado uno de la relacion muchos a muchos
-        public ICollection<Product> Products { get; set; }
+        public ICollection<ProductPurchase> Products { get; set; }
+        public virtual ICollection<Purchase> Purchases { get; set; }
     }
 }

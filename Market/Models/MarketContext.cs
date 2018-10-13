@@ -39,5 +39,11 @@ namespace Market.Models
 
         public System.Data.Entity.DbSet<Market.Models.OrderDetail> OrderDetail { get; set; }
 
+        public System.Data.Entity.DbSet<Market.Models.ProductInventory> ProductInventories { get; set; }
+
+        public System.Data.Entity.DbSet<Market.Models.Purchase> Purchases { get; set; }
+
+        public System.Data.Entity.DbSet<Market.Models.PurchaseProduct> PurchaseProducts { get; set; }
+
     }
 }

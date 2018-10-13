@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Market.Models
 {
-    public class ProductOrder : ProductInventory
+    public class ProductPurchase : ProductInventory
     {
         [Required(ErrorMessage = "Debe ingresar el {0}")]
         [Display(Name = "Cantidad")]

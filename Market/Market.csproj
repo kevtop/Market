@@ -213,6 +213,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="AutoCompleteHelpers.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DocumentTypesController.cs" />
@@ -222,7 +223,9 @@
     <Compile Include="Controllers\OrderDetailController.cs" />
     <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\ProductInventoriesController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\PurchasesController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Detalle.cs">
@@ -235,7 +238,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ProductInventory.cs" />
     <Compile Include="Models\ProductOrder.cs" />
+    <Compile Include="Models\ProductPurchase.cs" />
+    <Compile Include="Models\Purchase.cs" />
+    <Compile Include="Models\PurchaseProduct.cs" />
+    <Compile Include="ViewModels\PurchaseDetailView.cs" />
+    <Compile Include="ViewModels\PurchaseView.cs" />
     <Compile Include="ViewModels\RoleView.cs" />
     <Compile Include="ViewModels\UserView.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
@@ -257,6 +266,7 @@
     <Compile Include="ViewModels\OrderView.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-minty.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -316,7 +326,6 @@
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
@@ -362,6 +371,18 @@
     <Content Include="Views\OrderDetails\Edit.cshtml" />
     <Content Include="Views\OrderDetails\Index.cshtml" />
     <Content Include="Views\OrderDetail\Detalles.cshtml" />
+    <Content Include="Views\ProductInventories\Create.cshtml" />
+    <Content Include="Views\ProductInventories\Delete.cshtml" />
+    <Content Include="Views\ProductInventories\Details.cshtml" />
+    <Content Include="Views\ProductInventories\Edit.cshtml" />
+    <Content Include="Views\ProductInventories\Index.cshtml" />
+    <Content Include="Views\Purchases\Create.cshtml" />
+    <Content Include="Views\Purchases\Delete.cshtml" />
+    <Content Include="Views\Purchases\Details.cshtml" />
+    <Content Include="Views\Purchases\Edit.cshtml" />
+    <Content Include="Views\Purchases\Index.cshtml" />
+    <Content Include="Views\Purchases\AddProduct.cshtml" />
+    <Content Include="Views\Purchases\NewPurchase.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Delete.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />

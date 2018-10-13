@@ -6,11 +6,11 @@ using System.Web;
 
 namespace Market.Models
 {
-    public class OrderDetail
+    public class PurchaseProduct
     {
         [Key]
-        public int OrderDetailID { get; set; }
-        public int OrderID { get; set; }
+        public int PurchaseProductID { get; set; }
+        public int PurchaseID { get; set; }
         public int ProductID { get; set; }
         [Display(Name = "Descripcion")]
         public string Description { get; set; }
@@ -24,11 +24,9 @@ namespace Market.Models
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
         public float Quantity { get; set; }
-        [DataType(DataType.Currency)]
-        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal Total { get; set; }
 
-        public virtual Order Order { get; set; }
-        public virtual ProductOrder Product { get; set; }
+        public virtual Purchase Purchase { get; set; }
+        public virtual ProductPurchase Product { get; set; }
     }
 }
