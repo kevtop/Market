@@ -252,7 +252,6 @@
     <Compile Include="Models\DocumentType.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Inventory.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\MarketContext.cs" />
     <Compile Include="Models\Order.cs" />

@@ -28,6 +28,7 @@ namespace Market.Models
         public DateTime LastBuy { get; set; }
 
         public virtual Supplier Supplier { get; set; }
-        public virtual ProductPurchase Product { get; set; }
+        public virtual Product Product { get; set; }
+
     }
 }

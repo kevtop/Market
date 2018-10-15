@@ -25,8 +25,8 @@ namespace Market.Models
         [DataType(DataType.MultilineText)]
         public string Remarks { get; set; }
         //lado uno de la relacion muchos a muchos
-        
         public ICollection<OrderDetail> OrderDetails { get; set; }
+        public ICollection<PurchaseProduct> PurchaseProducts { get; set; }
 
     }
 }

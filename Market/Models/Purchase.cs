@@ -18,7 +18,7 @@ namespace Market.Models
         public int SupplierID { get; set; }
         public decimal Total { get; set; }
 
-        public virtual ProductPurchase Product { get; set; }
+        
         public virtual Supplier Supplier { get; set; }
         public virtual ICollection<PurchaseProduct> PurchaseProducts { get; set; }
 
