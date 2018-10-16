@@ -62,11 +62,8 @@ namespace Market.Controllers
             }
             OrderDetailView orderDetailView = new OrderDetailView();
             orderDetailView.Order = db.Orders.Find(id);
-            OrderDetail orderDetail = db.OrderDetail.Find(id);
-            orderDetail.Order.OrderStatus = OrderStatus.Delivered;
-            db.Entry(orderDetail).State = EntityState.Modified;
+            db.Orders.Find(id).OrderStatus = OrderStatus.Delivered;
             db.SaveChanges();
-            orderDetailView.Order.OrderStatus = orderDetail.Order.OrderStatus;
             if (orderDetailView == null)
             {
                 return HttpNotFound();

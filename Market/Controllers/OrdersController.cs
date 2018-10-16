@@ -99,7 +99,7 @@ namespace Market.Controllers
                             OrderID = orderID
                         };
                         db.OrderDetail.Add(orderDetail);
-                        db.ProductInventories.Find(orderDetail.ProductID).Stock -= (int)orderDetail.Quantity;
+                        db.ProductInventories.Where(a => a.ProductID == orderDetail.ProductID).First().Stock -= (int)orderDetail.Quantity;
                         order.Total += orderDetail.Total;
                         db.SaveChanges();
                     }
@@ -158,7 +158,7 @@ namespace Market.Controllers
                 return View(productOrder);
             }
 
-            var product = db.ProductInventories.Find(productID);
+            var product = db.Products.Find(productID);
             if (product == null)
             {
                 var list = db.ProductInventories.ToList();
@@ -188,7 +188,7 @@ namespace Market.Controllers
                     return View(productOrder);
 
                 }
-                if (int.Parse(Request["Quantity"]) < db.ProductInventories.Find(productID).Stock)
+                if (int.Parse(Request["Quantity"]) < db.ProductInventories.Where(a=>a.ProductID==productID).First().Stock)
                 {
                     productOrder = new ProductOrder
                     {
@@ -211,7 +211,7 @@ namespace Market.Controllers
             }
             else
             {
-                var stock = db.ProductInventories.Find(productID).Stock - productOrder.Quantity;
+                var stock = db.ProductInventories.Where(a => a.ProductID == productID).First().Stock - productOrder.Quantity;
                 if (stock >= int.Parse(Request["Quantity"]))
                 {
                     productOrder.Quantity += float.Parse(Request["Quantity"]);
