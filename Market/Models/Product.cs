@@ -9,6 +9,7 @@ namespace Market.Models
     public class Product
     {
         [Key]
+        [Display(Name ="Codigo Producto")]
         public int ProductID { get; set; }
         [Required(ErrorMessage = "Debe ingresar la {0}")]
         [Display(Name ="Descripcion")]
@@ -25,8 +26,8 @@ namespace Market.Models
         [DataType(DataType.MultilineText)]
         public string Remarks { get; set; }
         //lado uno de la relacion muchos a muchos
-        
         public ICollection<OrderDetail> OrderDetails { get; set; }
+        public ICollection<PurchaseProduct> PurchaseProducts { get; set; }
 
     }
 }

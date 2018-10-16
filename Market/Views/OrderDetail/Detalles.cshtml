@@ -17,20 +17,27 @@
     <body>
 
         <div class="orden">
-            <h2 class="detalles">Orden: @Model.Order.OrderID</h2>
+            <h2 class="detalles">GTG</h2>
+            <h2 class="detalles">Control de Ventas GTG</h2>
+            <h2 class="detalles">Nit: 29876656</h2>
+            <h2 class="detalles">17-15 Edificio Atlantis, Zona 9</h2>
+            <h2 class="detalles">Guatemala, Guatemala</h2>
+            <h2 class="detalles">Sujeto a pagos Trimestrales</h2>
+            <h2 class="detalles">Factura serie: H891 No: @Model.Order.OrderID</h2>
         </div>
-        <h2 class="detalles">Cliente: @Model.Order.Customer.FullName Nit: @Model.Order.Customer.Document</h2>
-        <div>
-            <h2 class="orden">Fecha: @Model.Order.DateOrder Estatus: @Model.Order.OrderStatus</h2>
+        <div class="align-self-xl-stretch">
+            <h2 class="cliente">Nit: @Model.Order.Customer.Document</h2>
+            <h2 class="cliente">Cliente: @Model.Order.Customer.FullName</h2>
         </div>
+        
         <div>
-            <table>
+            <table class="table-borderless">
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.Product.ProductID)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.OrderDetail.Total)
+                        @Html.DisplayNameFor(model => model.OrderDetail.Description)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.OrderDetail.Quantity)
@@ -39,32 +46,35 @@
                         @Html.DisplayNameFor(model => model.OrderDetail.Price)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Product.Description)
+                        @Html.DisplayNameFor(model => model.OrderDetail.Total)
                     </th>
 
                 </tr>
 
                 @foreach (var item in Model.Order.OrderDetails)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Product.ProductID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Total)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                    </tr>
                 }
             </table>
+            <div>
+                <h2 class="orden">Fecha: @Model.Order.DateOrder Estatus: @Model.Order.OrderStatus</h2>
+            </div>
         </div>
         <h2>Total Orden: @Model.Order.Total</h2>
     </body>

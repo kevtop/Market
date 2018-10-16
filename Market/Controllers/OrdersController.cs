@@ -137,7 +137,7 @@ namespace Market.Controllers
             var list = db.ProductInventories.ToList();
             list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
             list = list.OrderBy(p => p.Description).ToList();
-            ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+            ViewBag.lista = list;
             return View();
         }
 
@@ -153,7 +153,7 @@ namespace Market.Controllers
                 var list = db.ProductInventories.ToList();
                 list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
                 list = list.OrderBy(p => p.Description).ToList();
-                ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                ViewBag.lista = list;
                 ViewBag.Error = "Debe seleccionar un producto";
                 return View(productOrder);
             }
@@ -164,7 +164,7 @@ namespace Market.Controllers
                 var list = db.ProductInventories.ToList();
                 list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
                 list = list.OrderBy(p => p.Description).ToList();
-                ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                ViewBag.lista = list;
                 ViewBag.Error = "Producto no existe";
                 return View(productOrder);
             }
@@ -183,7 +183,7 @@ namespace Market.Controllers
                     var list = db.ProductInventories.ToList();
                     list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
                     list = list.OrderBy(p => p.Description).ToList();
-                    ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                    ViewBag.lista = list;
                     ViewBag.Error = "Debe ingresar una cantidad";
                     return View(productOrder);
 
@@ -204,7 +204,7 @@ namespace Market.Controllers
                     var list = db.ProductInventories.ToList();
                     list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
                     list = list.OrderBy(p => p.Description).ToList();
-                    ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                    ViewBag.lista = list;
                     ViewBag.Error = "La cantidad es mayor que el stock disponible";
                     return View(productOrder);
                 }
@@ -221,7 +221,7 @@ namespace Market.Controllers
                     var list = db.ProductInventories.ToList();
                     list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
                     list = list.OrderBy(p => p.Description).ToList();
-                    ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                    ViewBag.lista = list;
                     ViewBag.Error = string.Format("La cantidad es mayor que el stock disponible {0}", stock);
                     return View(productOrder);
                 }

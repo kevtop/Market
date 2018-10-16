@@ -50,8 +50,7 @@ namespace Market.Controllers
                 PageSize = Rotativa.Options.Size.A6,
                 PageOrientation = Rotativa.Options.Orientation.Portrait,
                 PageMargins = new Rotativa.Options.Margins(0,0,0,0),
-                PageWidth = 120,
-                PageHeight = 80
+                PageWidth = 60
             };
             return q;
         }
