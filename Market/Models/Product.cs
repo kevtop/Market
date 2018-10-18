@@ -9,6 +9,7 @@ namespace Market.Models
     public class Product
     {
         [Key]
+        [Display(Name ="Codigo Producto")]
         public int ProductID { get; set; }
         [Required(ErrorMessage = "Debe ingresar la {0}")]
         [Display(Name ="Descripcion")]

@@ -50,8 +50,7 @@ namespace Market.Controllers
                 PageSize = Rotativa.Options.Size.A6,
                 PageOrientation = Rotativa.Options.Orientation.Portrait,
                 PageMargins = new Rotativa.Options.Margins(0,0,0,0),
-                PageWidth = 120,
-                PageHeight = 80
+                PageWidth = 60
             };
             return q;
         }
@@ -63,11 +62,8 @@ namespace Market.Controllers
             }
             OrderDetailView orderDetailView = new OrderDetailView();
             orderDetailView.Order = db.Orders.Find(id);
-            OrderDetail orderDetail = db.OrderDetail.Find(id);
-            orderDetail.Order.OrderStatus = OrderStatus.Delivered;
-            db.Entry(orderDetail).State = EntityState.Modified;
+            db.Orders.Find(id).OrderStatus = OrderStatus.Delivered;
             db.SaveChanges();
-            orderDetailView.Order.OrderStatus = orderDetail.Order.OrderStatus;
             if (orderDetailView == null)
             {
                 return HttpNotFound();

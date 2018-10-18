@@ -1,0 +1,52 @@
+﻿@model Market.ViewModels.PurchaseDetailView
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Purchase.PurchaseID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Supplier)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Purchase.DateBuy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Purchase.Total)
+        </th>
+
+    </tr>
+
+    @for (int i = 0; i < Model.Purchases.Count; i++)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Purchases[i].PurchaseID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Purchases[i].Supplier.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Purchases[i].DateBuy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Purchases[i].Total)
+        </td>
+
+        @*<td>
+            @Html.ActionLink("Details", "Details", new { id = Model.Orders[i].OrderID }, new { @class = "btn btn-primary" })
+        </td>
+        <td>
+            @Html.ActionLink("Imprimir", "Print", new { id = Model.Orders[i].OrderID }, new { @class = "btn btn-primary" })
+        </td>*@
+
+    </tr>
+    }
+</table>

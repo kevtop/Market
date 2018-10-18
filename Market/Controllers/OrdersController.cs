@@ -99,7 +99,7 @@ namespace Market.Controllers
                             OrderID = orderID
                         };
                         db.OrderDetail.Add(orderDetail);
-                        db.ProductInventories.Find(orderDetail.ProductID).Stock -= (int)orderDetail.Quantity;
+                        db.ProductInventories.Where(a => a.ProductID == orderDetail.ProductID).First().Stock -= (int)orderDetail.Quantity;
                         order.Total += orderDetail.Total;
                         db.SaveChanges();
                     }
@@ -137,7 +137,7 @@ namespace Market.Controllers
             var list = db.ProductInventories.ToList();
             list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
             list = list.OrderBy(p => p.Description).ToList();
-            ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+            ViewBag.lista = list;
             return View();
         }
 
@@ -153,18 +153,18 @@ namespace Market.Controllers
                 var list = db.ProductInventories.ToList();
                 list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
                 list = list.OrderBy(p => p.Description).ToList();
-                ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                ViewBag.lista = list;
                 ViewBag.Error = "Debe seleccionar un producto";
                 return View(productOrder);
             }
 
-            var product = db.ProductInventories.Find(productID);
+            var product = db.Products.Find(productID);
             if (product == null)
             {
                 var list = db.ProductInventories.ToList();
                 list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
                 list = list.OrderBy(p => p.Description).ToList();
-                ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                ViewBag.lista = list;
                 ViewBag.Error = "Producto no existe";
                 return View(productOrder);
             }
@@ -183,12 +183,12 @@ namespace Market.Controllers
                     var list = db.ProductInventories.ToList();
                     list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
                     list = list.OrderBy(p => p.Description).ToList();
-                    ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                    ViewBag.lista = list;
                     ViewBag.Error = "Debe ingresar una cantidad";
                     return View(productOrder);
 
                 }
-                if (int.Parse(Request["Quantity"]) < db.ProductInventories.Find(productID).Stock)
+                if (int.Parse(Request["Quantity"]) < db.ProductInventories.Where(a=>a.ProductID==productID).First().Stock)
                 {
                     productOrder = new ProductOrder
                     {
@@ -204,14 +204,14 @@ namespace Market.Controllers
                     var list = db.ProductInventories.ToList();
                     list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
                     list = list.OrderBy(p => p.Description).ToList();
-                    ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                    ViewBag.lista = list;
                     ViewBag.Error = "La cantidad es mayor que el stock disponible";
                     return View(productOrder);
                 }
             }
             else
             {
-                var stock = db.ProductInventories.Find(productID).Stock - productOrder.Quantity;
+                var stock = db.ProductInventories.Where(a => a.ProductID == productID).First().Stock - productOrder.Quantity;
                 if (stock >= int.Parse(Request["Quantity"]))
                 {
                     productOrder.Quantity += float.Parse(Request["Quantity"]);
@@ -221,7 +221,7 @@ namespace Market.Controllers
                     var list = db.ProductInventories.ToList();
                     list.Add(new ProductOrder { ProductID = 0, Description = "[Selecciona un Producto]" });
                     list = list.OrderBy(p => p.Description).ToList();
-                    ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                    ViewBag.lista = list;
                     ViewBag.Error = string.Format("La cantidad es mayor que el stock disponible {0}", stock);
                     return View(productOrder);
                 }

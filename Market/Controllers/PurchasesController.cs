@@ -107,10 +107,29 @@ namespace Market.Controllers
                             Total = item.Value,
                             PurchaseID = purchaseID
                         };
+                        var product = db.ProductInventories.Find(purchaseProduct.ProductID);
+                        if (product == null)
+                        {
+                            ProductInventory productInventory = new ProductInventory
+                            {
+                                ProductID = item.ProductID,
+                                Description = item.Description,
+                                Price = (purchaseProduct.Price * (decimal)db.Products.Find(purchaseProduct.ProductID).Margin) + purchaseProduct.Price,
+                                Stock = (int)purchaseProduct.Quantity,
+                                SupplierID = purchase.SupplierID,
+                                LastBuy = purchase.DateBuy
+                            };
+                            db.ProductInventories.Add(productInventory);
+                            
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            db.ProductInventories.Find(purchaseProduct.ProductID).Stock += (int)purchaseProduct.Quantity;
+                            db.ProductInventories.Find(purchaseProduct.ProductID).Price = (purchaseProduct.Price * (decimal)db.Products.Find(purchaseProduct.ProductID).Margin) + purchaseProduct.Price;
+                        }
                         db.PurchaseProducts.Add(purchaseProduct);
-                        db.ProductInventories.Find(purchaseProduct.ProductID).Stock += (int)purchaseProduct.Quantity;
-                        db.ProductInventories.Find(purchaseProduct.ProductID).Price = (purchaseProduct.Price * (decimal)db.Products.Find(purchaseProduct.ProductID).Margin) + purchaseProduct.Price;
-                        db.Products.Find(purchaseProduct.ProductID).Price = db.ProductInventories.Find(purchaseProduct.ProductID).Price;
+                        db.Products.Find(purchaseProduct.ProductID).Price = (purchaseProduct.Price * (decimal)db.Products.Find(purchaseProduct.ProductID).Margin) + purchaseProduct.Price;
                         purchase.Total += purchaseProduct.Total;
                         db.SaveChanges();
                     }
@@ -278,10 +297,10 @@ namespace Market.Controllers
 
         public ActionResult AddProduct()
         {
-            var list = db.ProductInventories.ToList();
-            list.Add(new ProductPurchase { ProductID = 0, Description = "[Selecciona un Producto]" });
+            var list = db.Products.ToList();
+            list.Add(new Product { ProductID = 0, Description = "[Selecciona un Producto]" });
             list = list.OrderBy(p => p.Description).ToList();
-            ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+            ViewBag.lista = list;
             return View();
         }
 
@@ -298,7 +317,7 @@ namespace Market.Controllers
                 var list = db.ProductInventories.ToList();
                 list.Add(new ProductPurchase { ProductID = 0, Description = "[Selecciona un Producto]" });
                 list = list.OrderBy(p => p.Description).ToList();
-                ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                ViewBag.lista = list;
                 ViewBag.Error = "Debe seleccionar un producto";
                 return View(productPurchase);
             }
@@ -309,7 +328,7 @@ namespace Market.Controllers
                 var list = db.ProductInventories.ToList();
                 list.Add(new ProductPurchase { ProductID = 0, Description = "[Selecciona un Producto]" });
                 list = list.OrderBy(p => p.Description).ToList();
-                ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                ViewBag.lista = list;
                 ViewBag.Error = "Producto no existe";
                 return View(productPurchase);
             }
@@ -327,15 +346,13 @@ namespace Market.Controllers
                         Quantity = result
                     };
                     purchaseView.Products.Add(productPurchase);
-
-
                 }
                 else
                 {
                     var list = db.ProductInventories.ToList();
                     list.Add(new ProductPurchase { ProductID = 0, Description = "[Selecciona un Producto]" });
                     list = list.OrderBy(p => p.Description).ToList();
-                    ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
+                    ViewBag.lista = list;
                     ViewBag.Error = "Debe ingresar una cantidad";
                     return View(productPurchase);
 
@@ -352,6 +369,8 @@ namespace Market.Controllers
 
             return View("NewPurchase", purchaseView);
         }
+
+        
 
         protected override void Dispose(bool disposing)
         {
