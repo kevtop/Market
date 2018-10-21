@@ -190,9 +190,6 @@ C:\Users\user\Desktop\market\Market\bin\roslyn\vbc.rsp
 C:\Users\user\Desktop\market\Market\bin\roslyn\VBCSCompiler.exe
 C:\Users\user\Desktop\market\Market\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\user\Desktop\market\Market\bin\Antlr3.Runtime.dll
-C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.CrystalReports.Engine.dll
-C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportSource.dll
-C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.Shared.dll
 C:\Users\user\Desktop\market\Market\bin\DropDownListChosen.dll
 C:\Users\user\Desktop\market\Market\bin\EntityFramework.dll
 C:\Users\user\Desktop\market\Market\bin\EntityFramework.SqlServer.dll

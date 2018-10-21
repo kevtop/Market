@@ -14,7 +14,7 @@ namespace Market.Controllers
     public class PurchasesController : Controller
     {
         private MarketContext db = new MarketContext();
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: Purchases
         public ActionResult Index()
         {
@@ -25,7 +25,7 @@ namespace Market.Controllers
             
             return View(purchaseDetailView);
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         public ActionResult NewPurchase()
         {
 
@@ -41,6 +41,7 @@ namespace Market.Controllers
 
             return View(purchaseView);
         }
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         [HttpPost]
         public ActionResult NewPurchase(PurchaseView purchaseView)
         {
@@ -294,7 +295,7 @@ namespace Market.Controllers
         //    ViewBag.ProductID = new SelectList(list, "ProductID", "Description");
         //    return View();
         //}
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         public ActionResult AddProduct()
         {
             var list = db.Products.ToList();
@@ -304,7 +305,7 @@ namespace Market.Controllers
             return View();
         }
 
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         [HttpPost]
         public ActionResult AddProduct(ProductPurchase productPurchase)
         {

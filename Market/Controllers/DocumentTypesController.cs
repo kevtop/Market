@@ -15,13 +15,13 @@ namespace Market.Controllers
     {
 
         private MarketContext db = new MarketContext();
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: DocumentTypes
         public ActionResult Index()
         {
             return View(db.DocumentTypes.ToList());
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: DocumentTypes/Details/5
         public ActionResult Details(int? id)
         {
@@ -36,13 +36,13 @@ namespace Market.Controllers
             }
             return View(documentType);
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: DocumentTypes/Create
         public ActionResult Create()
         {
             return View();
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // POST: DocumentTypes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -59,7 +59,7 @@ namespace Market.Controllers
 
             return View(documentType);
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // GET: DocumentTypes/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -74,7 +74,7 @@ namespace Market.Controllers
             }
             return View(documentType);
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // POST: DocumentTypes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -90,7 +90,7 @@ namespace Market.Controllers
             }
             return View(documentType);
         }
-
+        [Authorize(Roles = "Administrador")]
         // GET: DocumentTypes/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -105,7 +105,7 @@ namespace Market.Controllers
             }
             return View(documentType);
         }
-
+        [Authorize(Roles = "Administrador")]
         // POST: DocumentTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -17,14 +17,14 @@ namespace Market.Controllers
     {
         private MarketContext db = new MarketContext();
         ApplicationDbContext dba = new ApplicationDbContext();
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // GET: Employees
         public ActionResult Index()
         {
             var employees = db.Employees.Include(e => e.DocumentType);
             return View(employees.ToList());
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // GET: Employees/Details/5
         public ActionResult Details(int? id)
         {
@@ -39,14 +39,14 @@ namespace Market.Controllers
             }
             return View(employee);
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // GET: Employees/Create
         public ActionResult Create()
         {
             ViewBag.DocumentTypeID = new SelectList(db.DocumentTypes, "DocumentTypeID", "Description");
             return View();
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // POST: Employees/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -78,7 +78,7 @@ namespace Market.Controllers
             ViewBag.DocumentTypeID = new SelectList(db.DocumentTypes, "DocumentTypeID", "Description", employee.DocumentTypeID);
             return View(employee);
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // GET: Employees/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -94,7 +94,7 @@ namespace Market.Controllers
             ViewBag.DocumentTypeID = new SelectList(db.DocumentTypes, "DocumentTypeID", "Description", employee.DocumentTypeID);
             return View(employee);
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // POST: Employees/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -111,7 +111,7 @@ namespace Market.Controllers
             ViewBag.DocumentTypeID = new SelectList(db.DocumentTypes, "DocumentTypeID", "Description", employee.DocumentTypeID);
             return View(employee);
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // GET: Employees/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -126,7 +126,7 @@ namespace Market.Controllers
             }
             return View(employee);
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

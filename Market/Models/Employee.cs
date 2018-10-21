@@ -23,7 +23,7 @@ namespace Market.Models
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal Salary { get; set; }
         [Display(Name = "Porcentaje")]
-        [DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = @"{0:#\%}", ApplyFormatInEditMode = false)]
         public float bonusPercent { get; set; }
         [Display(Name = "Fecha de Nacimiento")]
         [Required(ErrorMessage = "Necesita ingresar un {0}")]
