@@ -22,6 +22,8 @@ namespace Market
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<
                 Models.MarketContext, 
                 Migrations.Configuration>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<
+                DWMarketContext>());
             ApplicationDbContext db = new ApplicationDbContext();
             CreateRoles(db);
             CreateSuperUser(db);

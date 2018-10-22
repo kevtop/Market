@@ -18,10 +18,32 @@ namespace Market.Controllers
         {
             return View();
         }
-        public ActionResult MSProduct()
+        //public ActionResult MSProduct()
+        //{
+        //    return View();
+        //}
+        [HttpPost]
+        public ActionResult MSProduct(ReportView reportView)
         {
-            ReportView reportView = new ReportView();
-            reportView.OrderDetails = db.OrderDetail.ToList();
+            
+            reportView.OrderDetails = new List<OrderDetail>();
+            var list = db.OrderDetail.Where(l => l.Order.DateOrder > reportView.StartTime  && l.Order.DateOrder < reportView.StopTime).ToList();
+            
+            foreach (var item in list)
+            {
+                if (reportView.OrderDetails.Count == 0)
+                {
+                    reportView.OrderDetails.Add(item);
+                }
+                if (reportView.OrderDetails.Find(a => a.ProductID == item.ProductID) == null)
+                {
+                    reportView.OrderDetails.Add(item);
+                }
+                else
+                {
+                    reportView.OrderDetails.Find(a => a.ProductID == item.ProductID).Quantity += item.Quantity;
+                }
+            }
             ArrayList xValue = new ArrayList();
             ArrayList yValue = new ArrayList();
 
@@ -30,10 +52,10 @@ namespace Market.Controllers
                 xValue.Add(item.Description);
                 yValue.Add(item.Quantity);
             }
-            
+
 
             new Chart(width: 600, height: 400, theme: ChartTheme.Vanilla)
-            .AddTitle("Chart for Growth [Column Chart]")
+            .AddTitle($"Producto mas vendido de {reportView.StartTime.ToShortDateString()} a {reportView.StopTime.ToShortDateString()}")
             .AddSeries("Default", chartType: "column", xValue: xValue, yValues: yValue)
             .Write("jpeg");
 

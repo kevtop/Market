@@ -230,19 +230,6 @@ C:\Users\user\Desktop\market\Market\bin\System.Web.WebPages.Deployment.dll
 C:\Users\user\Desktop\market\Market\bin\System.Web.WebPages.dll
 C:\Users\user\Desktop\market\Market\bin\System.Web.WebPages.Razor.dll
 C:\Users\user\Desktop\market\Market\bin\WebGrease.dll
-C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
-C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
-C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
-C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportAppServer.Controllers.dll
-C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
-C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
-C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportAppServer.Prompting.dll
-C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
-C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
-C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
-C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
-C:\Users\user\Desktop\market\Market\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
-C:\Users\user\Desktop\market\Market\bin\stdole.dll
 C:\Users\user\Desktop\market\Market\bin\System.Web.Helpers.xml
 C:\Users\user\Desktop\market\Market\bin\System.Web.Mvc.xml
 C:\Users\user\Desktop\market\Market\bin\System.Web.Optimization.xml
@@ -294,4 +281,4 @@ C:\Users\user\Desktop\market\Market\obj\Debug\Market.csproj.CoreCompileInputs.ca
 C:\Users\user\Desktop\market\Market\obj\Debug\Market.csproj.CopyComplete
 C:\Users\user\Desktop\market\Market\obj\Debug\Market.dll
 C:\Users\user\Desktop\market\Market\obj\Debug\Market.pdb
-C:\Users\user\Desktop\market\Market\obj\Debug\Market.csprojAssemblyReference.cache
+C:\Users\user\Desktop\Market\Market\obj\Debug\Market.csprojAssemblyReference.cache
