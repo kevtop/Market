@@ -14,7 +14,7 @@ namespace Market.Controllers
     {
         MarketContext db = new MarketContext();
 
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: Orders
         public ActionResult NewOrder()
         {
@@ -31,6 +31,7 @@ namespace Market.Controllers
 
             return View(orderView);
         }
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         [HttpPost]
         public ActionResult NewOrder(OrderView orderView)
         {
@@ -131,7 +132,7 @@ namespace Market.Controllers
             Session["orderView"] = orderView;
             return View(orderView);
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         public ActionResult AddProduct()
         {
             var list = db.ProductInventories.ToList();
@@ -140,7 +141,7 @@ namespace Market.Controllers
             ViewBag.lista = list;
             return View();
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         [HttpPost]
         public ActionResult AddProduct(ProductOrder productOrder)
         {

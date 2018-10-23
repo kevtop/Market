@@ -13,13 +13,13 @@ namespace Market.Controllers
     public class SuppliersController : Controller
     {
         private MarketContext db = new MarketContext();
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: Suppliers
         public ActionResult Index()
         {
             return View(db.Suppliers.ToList());
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: Suppliers/Details/5
         public ActionResult Details(int? id)
         {
@@ -34,13 +34,13 @@ namespace Market.Controllers
             }
             return View(supplier);
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // GET: Suppliers/Create
         public ActionResult Create()
         {
             return View();
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // POST: Suppliers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -57,7 +57,7 @@ namespace Market.Controllers
 
             return View(supplier);
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: Suppliers/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -72,7 +72,7 @@ namespace Market.Controllers
             }
             return View(supplier);
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // POST: Suppliers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -88,7 +88,7 @@ namespace Market.Controllers
             }
             return View(supplier);
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // GET: Suppliers/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -103,7 +103,7 @@ namespace Market.Controllers
             }
             return View(supplier);
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // POST: Suppliers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

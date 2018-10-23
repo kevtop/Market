@@ -22,6 +22,8 @@ namespace Market
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<
                 Models.MarketContext, 
                 Migrations.Configuration>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<
+                DWMarketContext>());
             ApplicationDbContext db = new ApplicationDbContext();
             CreateRoles(db);
             CreateSuperUser(db);
@@ -44,17 +46,17 @@ namespace Market
             {
                 userManager.AddToRole(user.Id, "View");
             }
-            if (!userManager.IsInRole(user.Id, "Edit"))
+            if (!userManager.IsInRole(user.Id, "Empleado"))
             {
-                userManager.AddToRole(user.Id, "Edit");
+                userManager.AddToRole(user.Id, "Empleado");
             }
-            if (!userManager.IsInRole(user.Id, "Create"))
+            if (!userManager.IsInRole(user.Id, "Gerente"))
             {
-                userManager.AddToRole(user.Id, "Create");
+                userManager.AddToRole(user.Id, "Gerente");
             }
-            if (!userManager.IsInRole(user.Id, "Delete"))
+            if (!userManager.IsInRole(user.Id, "Administrador"))
             {
-                userManager.AddToRole(user.Id, "Delete");
+                userManager.AddToRole(user.Id, "Administrador");
             }
 
         }
@@ -82,17 +84,17 @@ namespace Market
             {
                 RoleManager.Create(new IdentityRole("View"));
             }
-            if (!RoleManager.RoleExists("Edit"))
+            if (!RoleManager.RoleExists("Empleado"))
             {
-                RoleManager.Create(new IdentityRole("Edit"));
+                RoleManager.Create(new IdentityRole("Empleado"));
             }
-            if (!RoleManager.RoleExists("Create"))
+            if (!RoleManager.RoleExists("Gerente"))
             {
-                RoleManager.Create(new IdentityRole("Create"));
+                RoleManager.Create(new IdentityRole("Gerente"));
             }
-            if (!RoleManager.RoleExists("Delete"))
+            if (!RoleManager.RoleExists("Administrador"))
             {
-                RoleManager.Create(new IdentityRole("Delete"));
+                RoleManager.Create(new IdentityRole("Administrador"));
             }
         }
     }

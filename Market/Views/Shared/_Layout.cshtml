@@ -4,60 +4,60 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <title>@ViewBag.Title - Market</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/Chosen/chosen.min.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="navbar navbar-static-top navbar-fixed-top ">
+    <div class="navbar navbar-static-top navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggler-icon" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="glyphicon-barcode"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Market", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
+                @*<button type="button" class="navbar-toggler-icon" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  </button>*@
+            </div> 
             <div class="navbar-static-top position-static">
                 <ul class="nav navbar-nav" style="font-weight:bold">
                     <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
                     <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                     <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                    @if (User.IsInRole("View"))
+                    @if (User.IsInRole("View")||User.IsInRole("Empleado")||User.IsInRole("Gerente")||User.IsInRole("Administrador"))
                     {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Aplicaciones<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Products", "Index", "Products")</li>
-                                <li>@Html.ActionLink("Employees", "Index", "Employees")</li>
-                                <li>@Html.ActionLink("Document Types", "Index", "DocumentTypes")</li>
-                                <li>@Html.ActionLink("Proveedores", "Index", "Suppliers")</li>
+                                <li>@Html.ActionLink("Productos", "Index", "Products")</li>
                                 <li>@Html.ActionLink("Clientes", "Index", "Customers")</li>
-                                <li>@Html.ActionLink("Usuarios", "Index", "Users")</li>
-
+                                @if (User.IsInRole("Gerente") || User.IsInRole("Administrador"))
+                                {
+                                    <li>@Html.ActionLink("Empleados", "Index", "Employees")</li>
+                                    <li>@Html.ActionLink("Documentos", "Index", "DocumentTypes")</li>
+                                    <li>@Html.ActionLink("Proveedores", "Index", "Suppliers")</li>
+                                    <li>@Html.ActionLink("Usuarios", "Index", "Users")</li>
+                                }
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Operaciones<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Orders", "NewOrder", "Orders")</li>
+                                <li>@Html.ActionLink("Nueva Orden", "NewOrder", "Orders")</li>
                                 <li>@Html.ActionLink("Ordenes", "Index", "OrderDetail")</li>
+                                <hr />
                                 <li>@Html.ActionLink("Inventario", "Index", "ProductInventories")</li>
+                                <hr />
                                 <li>@Html.ActionLink("Compras", "Index", "Purchases")</li>
-                                <ul class="dropdown-menu-right">
-                                    <li>@Html.ActionLink("Nueva Compra", "NewPurchase", "Purchases")</li>
-                                    <li></li>
-                                </ul>
+                                <li>@Html.ActionLink("Nueva Compra", "NewPurchase", "Purchases")</li>
                             </ul>
                         </li>
                     }
                 </ul>
-                @Html.Partial("_LoginPartial")
+                @Html.Partial("_LoginPartial");
             </div>
         </div>
-    </div>
+   </div>
     <div class="container body-content">
         @RenderBody()
         <hr />

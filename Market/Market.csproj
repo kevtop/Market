@@ -229,6 +229,7 @@
     <Compile Include="Controllers\ProductInventoriesController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\PurchasesController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Detalle.cs">
@@ -241,6 +242,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DWMarketContext.cs" />
+    <Compile Include="Models\H_Ventas.cs" />
     <Compile Include="Models\ProductInventory.cs" />
     <Compile Include="Models\ProductOrder.cs" />
     <Compile Include="Models\ProductPurchase.cs" />
@@ -248,6 +251,7 @@
     <Compile Include="Models\PurchaseProduct.cs" />
     <Compile Include="ViewModels\PurchaseDetailView.cs" />
     <Compile Include="ViewModels\PurchaseView.cs" />
+    <Compile Include="ViewModels\ReportView.cs" />
     <Compile Include="ViewModels\RoleView.cs" />
     <Compile Include="ViewModels\UserView.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
@@ -395,6 +399,8 @@
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\Reports\MSProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

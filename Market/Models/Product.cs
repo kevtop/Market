@@ -20,7 +20,8 @@ namespace Market.Models
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal Price { get; set; }
         [Display(Name = "Porcentaje")]
-        [DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
+        //[Range(0.01,1)]
         public float Margin { get; set; }
         [Display(Name = "Comentarios")]
         [DataType(DataType.MultilineText)]

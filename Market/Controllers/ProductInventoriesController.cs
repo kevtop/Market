@@ -13,14 +13,14 @@ namespace Market.Controllers
     public class ProductInventoriesController : Controller
     {
         private MarketContext db = new MarketContext();
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: ProductInventories
         public ActionResult Index()
         {
             var productInventories = db.ProductInventories.Include(p => p.Product).Include(p => p.Supplier);
             return View(productInventories.ToList());
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: ProductInventories/Details/5
         public ActionResult Details(int? id)
         {
@@ -35,7 +35,7 @@ namespace Market.Controllers
             }
             return View(productInventory);
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: ProductInventories/Create
         public ActionResult Create()
         {
@@ -43,7 +43,7 @@ namespace Market.Controllers
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "Name");
             return View();
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // POST: ProductInventories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -68,7 +68,7 @@ namespace Market.Controllers
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "Name", productInventory.SupplierID);
             return View(productInventory);
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: ProductInventories/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -85,7 +85,7 @@ namespace Market.Controllers
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "Name", productInventory.SupplierID);
             return View(productInventory);
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // POST: ProductInventories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -103,7 +103,7 @@ namespace Market.Controllers
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "Name", productInventory.SupplierID);
             return View(productInventory);
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: ProductInventories/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -118,7 +118,7 @@ namespace Market.Controllers
             }
             return View(productInventory);
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // POST: ProductInventories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

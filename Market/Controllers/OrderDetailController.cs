@@ -16,6 +16,7 @@ namespace Market.Controllers
     public class OrderDetailController : Controller
     {
         private MarketContext db = new MarketContext();
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: OrderDetails
         public ActionResult Index()
         {
@@ -26,6 +27,7 @@ namespace Market.Controllers
             
             return View(orderDetailView);
         }
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -42,6 +44,7 @@ namespace Market.Controllers
             }
             return View(orderDetailView);
         }
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         public ActionResult Print(int? id)
         {
 
@@ -54,6 +57,7 @@ namespace Market.Controllers
             };
             return q;
         }
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         public ActionResult Detalles(int? id)
         {
             if (id == null)

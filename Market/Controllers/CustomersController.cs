@@ -14,14 +14,14 @@ namespace Market.Controllers
     public class CustomersController : Controller
     {
         private MarketContext db = new MarketContext();
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: Customers
         public ActionResult Index()
         {
             var customers = db.Customers.Include(c => c.DocumentType);
             return View(customers.ToList());
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: Customers/Details/5
         public ActionResult Details(int? id)
         {
@@ -36,14 +36,14 @@ namespace Market.Controllers
             }
             return View(customer);
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: Customers/Create
         public ActionResult Create()
         {
             ViewBag.DocumentTypeID = new SelectList(db.DocumentTypes, "DocumentTypeID", "Description");
             return View();
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // POST: Customers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -61,7 +61,7 @@ namespace Market.Controllers
             ViewBag.DocumentTypeID = new SelectList(list, "DocumentTypeID", "Description", customer.DocumentType);
             return View(customer);
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // GET: Customers/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -77,7 +77,7 @@ namespace Market.Controllers
             ViewBag.DocumentTypeID = new SelectList(db.DocumentTypes, "DocumentTypeID", "Description", customer.DocumentTypeID);
             return View(customer);
         }
-
+        [Authorize(Roles = "Empleado,Gerente,Administrador")]
         // POST: Customers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -94,7 +94,7 @@ namespace Market.Controllers
             ViewBag.DocumentTypeID = new SelectList(db.DocumentTypes, "DocumentTypeID", "Description", customer.DocumentTypeID);
             return View(customer);
         }
-
+        [Authorize(Roles = "Administrador")]
         // GET: Customers/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -109,7 +109,7 @@ namespace Market.Controllers
             }
             return View(customer);
         }
-
+        [Authorize(Roles = "Administrador")]
         // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

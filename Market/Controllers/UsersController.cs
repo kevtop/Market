@@ -14,6 +14,7 @@ namespace Market.Controllers
     public class UsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        [Authorize(Roles = "Gerente,Administrador")]
         // GET: Users
         public ActionResult Index()
         {
@@ -32,7 +33,7 @@ namespace Market.Controllers
             }
             return View(usersView);
         }
-
+        [Authorize(Roles = "Administrador")]
         public ActionResult Roles(string userID)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
@@ -66,7 +67,7 @@ namespace Market.Controllers
 
             return View(userView);
         }
-
+        [Authorize(Roles = "Administrador")]
         public ActionResult AddRole(string userID)
         {
             if (string.IsNullOrEmpty(userID))
@@ -98,7 +99,7 @@ namespace Market.Controllers
 
             return View(userView);
         }
-
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public ActionResult AddRole(string userID,FormCollection form)
         {
@@ -160,7 +161,7 @@ namespace Market.Controllers
 
             return View("Roles",userView);
         }
-
+        [Authorize(Roles = "Administrador")]
         public ActionResult Delete(string userID, string roleID)
         {
             if (string.IsNullOrEmpty(userID) || string.IsNullOrEmpty(roleID))

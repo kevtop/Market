@@ -13,13 +13,13 @@ namespace Market.Controllers
     public class ProductsController : Controller
     {
         private MarketContext db = new MarketContext();
-
+        [Authorize(Roles = "View,Empleado,Gerente,Administrador")]
         // GET: Products
         public ActionResult Index()
         {
             return View(db.Products.ToList());
         }
-
+        [Authorize(Roles = "View,Empleado,Gerente,Administrador")]
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
@@ -34,13 +34,13 @@ namespace Market.Controllers
             }
             return View(product);
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // GET: Products/Create
         public ActionResult Create()
         {
             return View();
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // POST: Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -50,6 +50,7 @@ namespace Market.Controllers
         {
             if (ModelState.IsValid)
             {
+                product.Margin = float.Parse(Request["Margin"]) / 100;
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -57,7 +58,7 @@ namespace Market.Controllers
 
             return View(product);
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -72,7 +73,7 @@ namespace Market.Controllers
             }
             return View(product);
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // POST: Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -88,7 +89,7 @@ namespace Market.Controllers
             }
             return View(product);
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // GET: Products/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -103,7 +104,7 @@ namespace Market.Controllers
             }
             return View(product);
         }
-
+        [Authorize(Roles = "Gerente,Administrador")]
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
